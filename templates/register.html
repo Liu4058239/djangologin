@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <form class="form-horizontal" role="form" method="POST" action="{% url 'register' %}">
+        <div class="form-group {% if register_form.errors.email %}errorput{% endif %}">
+            <label  class="col-sm-2 control-label">email</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱">
+            </div>
+        </div>
+        <div class="form-group {% if register_form.errors.password %}errorput{% endif %}">
+            <label  class="col-sm-2 control-label">pass</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="form-group {% if register_form.errors.captcha %}errorput{% endif %}">
+            <div class="col-sm-10">
+                {{ register_form.captcha }}
+            </div>
+        </div>
+
+        <div class="error btns" id="jsEmailTips">
+            {% for key,error in register_form.errors.items %}
+                {{ key }} - {{ error }}
+            {% endfor %}
+            {{ msg }}
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-default">Register</button>
+            </div>
+        </div>
+        {% csrf_token %}
+    </form>
+    <div>
+        <a href="{% url 'login' %}">去登录</a>
+    </div>
+</body>
+</html>
